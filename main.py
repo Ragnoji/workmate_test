@@ -178,7 +178,9 @@ def order_data(data: list[list[str]], headers: list[str], order_by: str) -> list
 if __name__ == '__main__':
     headers, table = [], []
     args = parser.parse_args()
-    if args.file is not None and os.path.isfile(args.file):
+    if args.file is None:
+        raise ValueError("--file path must be passed")
+    if os.path.isfile(args.file):
         headers, table = parse_csv(args.file)
     if args.where is not None:
         table = filter_data(table, headers, args.where)
